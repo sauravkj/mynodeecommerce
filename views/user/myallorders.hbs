@@ -1,0 +1,51 @@
+<section>
+<div class="container">
+    <h3>Order Details</h3>
+    <hr>
+    {{#if orders}}
+   <table class="table mt-5">
+       <thead>
+           <tr>
+               <th scope="col">Date</th>
+               <th scope="col">Address</th>
+               <th scope="col">Pincode</th>
+               <th scope="col">Mobile</th>
+               <th scope="col">Total Amount</th>
+               <th scope="col">Status</th>
+           </tr>
+       </thead>
+       <tbody>
+           {{#each orders}}
+             <tr>
+                  
+                  <td>{{this.date}}</td>
+                  <td>{{this.deliveryDetails.address}}</td>
+                  <td>{{this.deliveryDetails.pincode}}</td>
+                  <td>{{this.deliveryDetails.phno}}</td>
+                  <td>{{this.totalAmount}}</td>
+                  <td>{{this.status}}</td>
+                  <td><a href="/vieworders/{{this._id}}" class="btn btn-primary">Product Details</a></td>
+                  
+             </tr>
+             {{/each}}
+       </tbody>
+   </table>
+
+   {{else}}
+    <img class="img-center" style="height:310px" src="/images/sr.png" >
+    <h2 class="text-center">You haven't placed any orders</h2>
+    {{/if}}
+</div>
+
+</section>
+<style>
+ 
+ img {
+     height: 200px;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+    
+</style>

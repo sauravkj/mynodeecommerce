@@ -1,0 +1,102 @@
+ 
+  <section>
+    <div id="hk" class="container mt-5">
+      <div class="row">
+        {{#each products}}
+      <div id="hi" class="col-md-3 col-xs-1 ">
+
+         <div class="card" style="width: 14rem;">
+            <img class="form-control" class="card-img-top" alt="Card image cap"
+              src="/images/prod_image/{{this._id}}.jpg" style="height:200px;width:auto">
+            <div class="card-body">
+              <h5 class="card-title">{{this.Name}}</h5>
+              <p class="card-text">{{this.price}} Rs.</p>
+              <p class="card-text">{{this.description}}</p>
+              
+            
+             <button   onclick="cart('{{this._id}}')" class="btn btn-primary">Add to cart</button>
+            </div>
+          </div>
+
+        </div> 
+       {{/each}}
+      </div>
+
+      </div>
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>This is a prototype,original version will be different from this</strong> 
+</div>
+    <div class="footer">
+    <footer class="page-footer font-small blue">
+
+
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a >Saurav KJ</a>
+  </div>
+    </div>
+
+</footer>
+
+
+  </section>
+  
+<style>
+
+  .footer {
+ 
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color:DodgerBlue;
+   color: white;
+   text-align: center;
+   padding-top: 0px;
+}
+  @media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+  #hi{
+    width:200px;
+    padding-left: 70px;
+    padding-top: 3px;
+    margin-bottom: 30px;
+    
+  }
+
+  
+ .closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+</style>
+
+
+
+      
+   
+
+
+
+
+   

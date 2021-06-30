@@ -1,0 +1,33 @@
+<section>
+ <div class="container mt-5">
+     <h2>My Orders</h2>
+     
+  <div class="row">
+      {{#each products}}
+
+     <div class="col-md-3 p-3 ">
+     <div class="card" style="height: 24rem;width:12rem">
+        
+           <img class="form-control" class="card-img-top" alt="Card image cap"
+              src="/images/prod_image/{{this.item}}.jpg" style="height:200px;width:auto">
+          <div class="card-body">
+              
+               <h5 class="card-title">{{this.products.Name}}</h5>
+               <p class="card-text">{{this.products.description}}</p>
+              <p class="card-text">{{this.products.price}} Rs.</p>
+              <p class="card-text">Quantity: {{this.nos}}</p>
+
+              <button   class="btn btn-primary">Track Order</button>
+          </div>
+      </div>
+
+     </div>
+    {{/each}}
+  </div>
+
+ </div>
+
+
+
+
+</section>

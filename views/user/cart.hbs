@@ -1,0 +1,99 @@
+<section>
+
+<div class="container-fluid">
+   <table class="table mt-4">
+<thead>
+  <tr>
+     <th scope="col">Item</th>
+     <th scope="col">Title</th>
+     <th scope="col">Price</th>
+     <th scope="col">Quantity</th>
+  </tr>
+
+  </thead>
+  <tbody>
+
+ {{#each product}}
+     <tr>
+       
+        <td><img style="width: :70px ;height:70px;"  src="/images/prod_image/{{this.products._id}}.jpg"></td>
+      <td>{{this.products.description}} {{this.products.Name}}</td>
+      <td>{{this.products.price}}</td>
+     
+      <td>
+  
+           
+ <button class="btn-primary mr-1" onclick="changeQuantity('{{this.products._id}}','{{this._id}}','{{../user._id}}',-1)" class="button" >-</button>
+  <span id="{{this.products._id}}">{{this.nos}} </span>
+  <button class="btn-primary ml-1" onclick="changeQuantity('{{this.products._id}}','{{this._id}}','{{../user._id}}',1)" class="button">+</button>
+      </td>   
+     
+    
+      <td>
+         <button  onclick="rem('{{this.products._id}}','{{this._id}}')" class="btn btn-danger">REMOVE</button>
+      </td>
+     </tr>
+  
+     {{/each}}
+  </tbody>
+      
+      </table>
+  <hr> 
+  <h3 class="float-right mr-6 mt-2">Total amount : <span id="total">{{ttl}}</span> Rs.</h3>
+<a  href="/placeOrder"> <button type="button"  class="btn btn-primary btn-lg btn-block mb-4">Place Order</button> </a>
+
+</div>
+
+</section>
+
+<script>
+
+   function changeQuantity(proId,cartId,userId,count){
+       let quantity=parseInt(document.getElementById(proId).innerHTML)
+       $.ajax({
+  
+   
+    url:'/change-product-quantity',
+    data:{
+       cart:cartId,
+       product:proId,
+       count:count,
+       quantity:quantity,
+       user:userId
+    },
+    method:'post',
+    success:(response)=>{
+
+       if(response.removeProduct){
+          alert("Product Removed")
+          location.reload()
+       }
+      else{
+          document.getElementById(proId).innerHTML=quantity+count
+          document.getElementById('total').innerHTML=response.total
+       }
+    }
+
+  })
+   }
+  
+function rem(proId,cartId){
+
+ $.ajax({
+  
+  url:'/removePro',
+  data:{
+     product:proId,
+     cart:cartId
+  },
+  method:'post',
+  success:(response)=>{
+     alert("product removed")
+     location.reload()
+  }
+ })
+
+}
+</script>
+
+        

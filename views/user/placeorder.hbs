@@ -1,0 +1,177 @@
+<section>
+    <div class="container mt-4">
+        <form action="" id="orderForm">
+         <div class="row">
+          <div class="col-md-6">
+             
+               <h2>Delivery Details</h2>
+               <div>
+
+                   <label for="name">Name</label>
+                   <input class="form-control" type="text" name="name">
+
+                   <label for="address">Address</label>
+                   <input class="form-control" type="text" name="address">
+                    
+                   <label for="zip">Pincode</label>
+                   <input type="text" class="form-control" name="zip">
+
+                   <label for="mobileno.">Phone number</label>
+                   <input type="text" class="form-control" name="mob">
+                  
+                   <input type="text" name="userId" value="{{user._id}}" hidden>
+
+             </div>  </div> 
+       
+             <div id="hi" class="col-md-4 col-xs-1">
+                   <div id="example" class="container mt-5  checkout">
+                     <h5>Total amount:{{tot}} Rs.</h5>
+                     <hr>
+                    <div class="payment">
+                      <p>Payment Method</p>
+                      <label class="radio-inline">
+                        <input type="radio" name="payment" value="cod">Cash On Delivery
+                      </label>
+                      <label class="radio-inline ">
+                            <input type="radio" name="payment" value="Online">Online Payment
+                      </label>
+                      <button id="btn" class="btn btn-primary ">Checkout</button>
+
+                    </div>
+                     </hr>
+
+                   </div>
+             </div>
+             
+             
+             </div> </div>
+
+        </form>
+     
+
+    </div>
+
+
+
+
+</section>
+
+<style>
+ 
+ input[type=text] {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+
+#example {
+  border: 1px solid;
+  padding: 52px;
+  box-shadow: 5px 10px;
+   background-color: 	 #e60000;
+}
+
+#btn {
+  
+   padding-right: 70px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+
+  #btn {
+    margin-top: 30px;
+    padding-right: 100px;
+    position: right;
+    right:10px
+  }
+
+
+ 
+}
+</style>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+ $("#orderForm").submit((e)=>{
+   e.preventDefault()
+   $.ajax({
+    url:'/placeOrder',
+    data:$('#orderForm').serialize(),
+    method:'post',
+    success:(response)=>{
+
+      if(response.codsucess){
+
+        location.href='/ordsucess'
+      }
+      else{
+        
+       
+        rasorpayment(response)
+       // console.log(response)
+     
+      }
+      
+    }
+       
+ })
+ })
+function rasorpayment(order) {
+  //console.log(order.id,order.amount)
+  var options = {
+    "key": "rzp_test_bFkIfTGVRs5yxb", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount , // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Kshoppe",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        {{!-- alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature); --}}
+       
+      verifyPayment(response,order);
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+ rzp1.open();
+}
+
+ function verifyPayment(payment,order){
+   
+  $.ajax({
+     url:'/verifyPayment',
+     data:{
+       payment,
+       order
+     },
+     method:'post',
+     success:(response)=>{
+       if(response.status){
+         location.href='/ordsucess'
+       }
+       else{
+         alert("Try Again")
+       }
+     }
+     
+     
+  })
+
+} 
+</script>
