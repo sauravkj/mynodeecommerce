@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -16,8 +16,11 @@
     "hbs": "^4.1.2",
     "http-errors": "~1.6.2",
     "mongodb": "^3.6.6",
-    "mongoose": "^5.12.14",
     "morgan": "~1.9.0",
+    "node.js": "*",
     "promise": "^8.1.0",
     "razorpay": "^2.0.6"
+  },"engines": {
+    "node": ">=10.0.0"
   }
+}
